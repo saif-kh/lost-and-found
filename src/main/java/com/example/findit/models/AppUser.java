@@ -33,4 +33,7 @@ public class AppUser {
 
     @Length(min = 13, max = 26, message = "password should be between 13 and 26 characters")
     private String password;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean archived;
 }

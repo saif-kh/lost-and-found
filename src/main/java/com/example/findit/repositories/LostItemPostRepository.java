@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LostItemPostRepository extends PostRepository<LostItemPost> {
-    Page<LostItemPost> findAll(Pageable pageable);
-    Page<LostItemPost> findByArchivedFalse(Pageable pageable);
-    String x = "hi";
+//    Page<LostItemPost> findAll(Pageable pageable);
+//    Page<LostItemPost> findByArchivedFalse(Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package com.example.findit.services;
 
+import com.example.findit.models.AppUser;
 import com.example.findit.models.FoundItemPost;
 import com.example.findit.models.LostItemPost;
 import com.example.findit.models.Post;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public abstract class PostServices<T extends Post, R extends PostRepository<T>> {
+public abstract class PostServices<T extends Post , R extends PostRepository<T>> {
 
     R postRepository;
 

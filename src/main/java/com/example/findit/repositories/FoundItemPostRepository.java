@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface FoundItemPostRepository extends PostRepository<FoundItemPost> {
-    Page<FoundItemPost> findAll(Pageable pageable);
-    Page<FoundItemPost> findByArchivedFalse(Pageable pageable);
+//    Page<FoundItemPost> findAll(Pageable pageable);
+//    Page<FoundItemPost> findByArchivedFalse(Pageable pageable);
 }
