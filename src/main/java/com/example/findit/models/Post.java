@@ -1,17 +1,13 @@
 package com.example.findit.models;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -44,5 +40,7 @@ public class Post {
     @Column(columnDefinition = "boolean default false")
     private boolean archived;
 
+    @ManyToOne
+    private Person person;
 
 }

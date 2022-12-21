@@ -1,10 +1,11 @@
-package com.example.findit.services;
+package com.example.findit.detailsManagers;
 
 import com.example.findit.models.Person;
 import com.example.findit.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,19 +13,32 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PersonService {
+public class PersonDetailsManager {
 
     private PersonRepository personRepository;
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonDetailsManager(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-    public Person createPerson(Person person) {
+
+    public Person getUserById(long id) {
+        Optional<Person> person = personRepository.findById(id);
+        return person.orElseThrow(() -> {throw new UsernameNotFoundException("username");});
+    }
+
+    public Person getPersonByUsername(String username) {
+        Optional<Person> person = personRepository.findByEmail(username);
+        if(person.isEmpty()) throw new UsernameNotFoundException("username");
+//        if(person.isEmpty()) throw new UsernameNotFoundException("erroooooooooooooooooooooooooooooooooooooor");
+        return person.get();
+    }
+
+    public Person createUser(Person person) {
         return personRepository.save(person);
     }
 
-    public Person updatePerson(Person person, long id) {
+    public Person updateUser(Person person, long id) {
         personRepository.findById(id)
                 .ifPresentOrElse(
                         (personIsPresent) -> {
@@ -39,20 +53,11 @@ public class PersonService {
         return person;
     }
 
-    public Optional<Person> getPersonById(long id) {
-        return personRepository.existsById(id) ? personRepository.findById(id) : Optional.empty();
-    }
-
-    public Page<Person> getAllNoArchivedPersons(int pageNumber){
-        return personRepository.findByArchivedFalse(PageRequest.of(pageNumber, 5));
-    }
-
-    public void archivePerson(long id) {
+    public void deleteUser(long id) {
         personRepository.findById(id)
                 .ifPresentOrElse(
                         (personIsPresent) -> {
-                            personIsPresent.setArchived(true);
-                            personRepository.save(personIsPresent);
+                            personRepository.delete(personIsPresent);
                         }
                         , () -> {
                             throw new IllegalStateException("");
@@ -60,11 +65,16 @@ public class PersonService {
                 );
     }
 
-    public void deletePerson(long id) {
+    public Page<Person> getAllNoArchivedUsers(int pageNumber){
+        return personRepository.findByArchivedFalse(PageRequest.of(pageNumber, 5));
+    }
+
+    public void archiveUser(long id) {
         personRepository.findById(id)
                 .ifPresentOrElse(
                         (personIsPresent) -> {
-                            personRepository.delete(personIsPresent);
+                            personIsPresent.setArchived(true);
+                            personRepository.save(personIsPresent);
                         }
                         , () -> {
                             throw new IllegalStateException("");
