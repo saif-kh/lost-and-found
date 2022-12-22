@@ -3,7 +3,9 @@ package com.example.findit.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @DiscriminatorColumn(name = "user_type")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @SuperBuilder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -42,6 +45,6 @@ public class AppUser {
     @Column(columnDefinition = "boolean default false")
     private boolean archived;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person",fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 }

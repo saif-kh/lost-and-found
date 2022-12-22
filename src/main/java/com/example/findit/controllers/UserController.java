@@ -5,6 +5,7 @@ import com.example.findit.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.Predicate;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -33,4 +34,5 @@ public class UserController {
     public String sayHi(@RequestBody @Valid Person person){
         return person.toString();
     }
+
 }

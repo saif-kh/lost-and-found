@@ -15,7 +15,7 @@ import java.util.Optional;
 @Transactional
 public class PersonDetailsManager {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
     public PersonDetailsManager(PersonRepository personRepository) {
@@ -30,7 +30,6 @@ public class PersonDetailsManager {
     public Person getPersonByUsername(String username) {
         Optional<Person> person = personRepository.findByEmail(username);
         if(person.isEmpty()) throw new UsernameNotFoundException("username");
-//        if(person.isEmpty()) throw new UsernameNotFoundException("erroooooooooooooooooooooooooooooooooooooor");
         return person.get();
     }
 

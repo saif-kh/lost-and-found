@@ -1,5 +1,8 @@
 package com.example.findit.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +14,8 @@ import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @DiscriminatorColumn(name = "post_type")
 @Data
 @NoArgsConstructor

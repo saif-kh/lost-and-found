@@ -7,7 +7,6 @@ import com.example.findit.detailsManagers.PostDetailsManager;
 import com.example.findit.services.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,8 +20,7 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
 
     @PostMapping(value = "/create")
     public T createFoundItemPost(@RequestBody T post, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return postService.addPost(post, user);
+        return postService.addPost(post, authentication);
     }
 
     @GetMapping(value = "/get_post/{id}")
@@ -32,8 +30,7 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
 
     @PostMapping(value = "/update_post/{id}")
     public T updatePost(@RequestBody @Valid T post, @PathVariable long id, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        return postService.updatePost(post,id,user);
+        return postService.updatePost(post,id,authentication);
     }
 
     @GetMapping(value = "/all_posts/{pageNumber}")
@@ -43,19 +40,16 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
 
     @GetMapping(value = "/archive_post/{id}")
     public void archivePost(@PathVariable long id, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        postService.archivePost(id,user);
+        postService.archivePost(id,authentication);
     }
 
     @GetMapping(value = "/delete_post/{id}")
     public void deletePost(@PathVariable long id, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        postService.deletePost(id,user);
+        postService.deletePost(id,authentication);
     }
 
     @GetMapping(value = "/all_My_posts/{pageNumber}")
     public Page<T> getAllMyPosts(@PathVariable int pageNumber, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        return postService.getPostsByUsername(pageNumber, user);
+        return postService.getPostsByUsername(pageNumber, authentication);
     }
 }

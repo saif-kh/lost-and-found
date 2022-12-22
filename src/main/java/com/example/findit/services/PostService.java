@@ -12,6 +12,7 @@ import com.example.findit.repositories.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,8 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
 //        this.personDetailsManager = personDetailsManager;
 //        this.postRepository = postRepository;
 //    }
-    public T addPost(T postObj, User user) {
+    public T addPost(T postObj, Authentication auth) {
+        User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         Person person = personDetailsManager.getPersonByUsername(username);
         postObj.setPerson(person);
@@ -39,7 +41,8 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
         return postObj;
     }
 
-    public T updatePost(T postObj, long id, User user) {
+    public T updatePost(T postObj, long id, Authentication auth) {
+        User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         Person person = personDetailsManager.getPersonByUsername(username);
         T post = postDetailsManager.getPostById(id);
@@ -48,13 +51,17 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
         return postDetailsManager.updatePost(postObj, id);
     }
 
-    public Page<T> getPostsByUsername(int pageNumber, User user) {
+    public Page<T> getPostsByUsername(int pageNumber, Authentication auth) {
+        User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         Person person = personDetailsManager.getPersonByUsername(username);
-        return postRepository.findByPerson(person, PageRequest.of(pageNumber, 5));
+        Page<T> page = postRepository.findByPerson(person, PageRequest.of(pageNumber, 5));
+        page.getContent().forEach(post -> {post.setPerson(null);});
+        return page;
     }
 
-    public void deletePost(long id, User user) {
+    public void deletePost(long id, Authentication auth) {
+        User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         Person person = personDetailsManager.getPersonByUsername(username);
         T post = postDetailsManager.getPostById(id);
@@ -62,7 +69,8 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
         postDetailsManager.deletePost(id);
     }
 
-    public void archivePost(long id, User user) {
+    public void archivePost(long id, Authentication auth) {
+        User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         Person person = personDetailsManager.getPersonByUsername(username);
         T post = postDetailsManager.getPostById(id);
