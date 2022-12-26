@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-public class Category {
+public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,10 +19,7 @@ public class Category {
     @Column(unique = true)
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private List<Keyword> keywords;
-
-    @OneToMany(mappedBy = "category")
+    @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Post> posts;
+    private Category category;
 }

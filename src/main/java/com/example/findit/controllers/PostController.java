@@ -1,6 +1,9 @@
 package com.example.findit.controllers;
 
 import com.example.findit.detailsManagers.DetailsManager;
+import com.example.findit.dto.PostCreate;
+import com.example.findit.models.FilterPost;
+import com.example.findit.models.FoundItemPost;
 import com.example.findit.models.Post;
 import com.example.findit.repositories.GenericRepository;
 import com.example.findit.detailsManagers.PostDetailsManager;
@@ -19,7 +22,7 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
     S postService;
 
     @PostMapping(value = "/create")
-    public T createFoundItemPost(@RequestBody T post, Authentication authentication) {
+    public T createFoundItemPost(@RequestBody PostCreate post, Authentication authentication) {
         return postService.addPost(post, authentication);
     }
 
@@ -29,7 +32,7 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
     }
 
     @PostMapping(value = "/update_post/{id}")
-    public T updatePost(@RequestBody @Valid T post, @PathVariable long id, Authentication authentication){
+    public T updatePost(@RequestBody @Valid PostCreate post, @PathVariable long id, Authentication authentication){
         return postService.updatePost(post,id,authentication);
     }
 
@@ -51,5 +54,15 @@ public class PostController<T extends Post, R extends GenericRepository<T>,M ext
     @GetMapping(value = "/all_My_posts/{pageNumber}")
     public Page<T> getAllMyPosts(@PathVariable int pageNumber, Authentication authentication){
         return postService.getPostsByUsername(pageNumber, authentication);
+    }
+
+    @PostMapping("/filter/{pageNumber}")
+    private Page<T> filterPosts(@RequestBody @Valid FilterPost filterPost, @PathVariable int pageNumber ){
+        if(filterPost.getPostType().equals("found")) {
+            return postService.filterPosts(filterPost, "dateFindIt", pageNumber);
+        }else if(filterPost.getPostType().equals("lost")){
+            return postService.filterPosts(filterPost, "dateLostIt", pageNumber);
+        }
+        return null;
     }
 }

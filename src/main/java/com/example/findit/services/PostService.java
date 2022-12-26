@@ -1,14 +1,9 @@
 package com.example.findit.services;
 
-import com.example.findit.detailsManagers.DetailsManager;
-import com.example.findit.detailsManagers.FoundItemDetailsManager;
-import com.example.findit.detailsManagers.PersonDetailsManager;
-import com.example.findit.detailsManagers.PostDetailsManager;
-import com.example.findit.models.FoundItemPost;
-import com.example.findit.models.Person;
-import com.example.findit.models.Post;
-import com.example.findit.repositories.FoundItemPostRepository;
-import com.example.findit.repositories.GenericRepository;
+import com.example.findit.detailsManagers.*;
+import com.example.findit.dto.PostCreate;
+import com.example.findit.models.*;
+import com.example.findit.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,15 +11,28 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class PostService<T extends Post , R extends GenericRepository<T> , P extends DetailsManager<T,R>> {
+public abstract class PostService<T extends Post , R extends GenericRepository<T> , P extends DetailsManager<T,R>> {
 
     PersonDetailsManager personDetailsManager;
     DetailsManager<T,R> postDetailsManager;
     GenericRepository<T> postRepository;
 
     @Autowired
-    FoundItemPostRepository f;
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private KeywordRepository keywordRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private NeighborhoodRepository neighborhoodRepository;
+
 
 //    @Autowired
 //    public PostService(postDetailsManager<T,R> postDetailsManager, PersonDetailsManager personDetailsManager, GenericRepository<T> postRepository) {
@@ -32,47 +40,36 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
 //        this.personDetailsManager = personDetailsManager;
 //        this.postRepository = postRepository;
 //    }
-    public T addPost(T postObj, Authentication auth) {
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        Person person = personDetailsManager.getPersonByUsername(username);
-        postObj.setPerson(person);
-        postDetailsManager.createPost(postObj);
-        return postObj;
+    public T addPost(PostCreate postObj, Authentication auth) {
+        T post = buildPostDetails(postObj,auth);
+        postDetailsManager.createPost(post);
+        return post;
     }
 
-    public T updatePost(T postObj, long id, Authentication auth) {
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        Person person = personDetailsManager.getPersonByUsername(username);
+    public T updatePost(PostCreate postObj, long id, Authentication auth) {
+        Person person = findAuthenticated(auth);
         T post = postDetailsManager.getPostById(id);
         userEquality(person,post.getPerson());
-        postObj.setPerson(person);
-        return postDetailsManager.updatePost(postObj, id);
+        T newPost = buildPostDetails(postObj,auth);
+        return postDetailsManager.updatePost(newPost, id);
     }
 
     public Page<T> getPostsByUsername(int pageNumber, Authentication auth) {
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        Person person = personDetailsManager.getPersonByUsername(username);
+        Person person = findAuthenticated(auth);
         Page<T> page = postRepository.findByPerson(person, PageRequest.of(pageNumber, 5));
         page.getContent().forEach(post -> {post.setPerson(null);});
         return page;
     }
 
     public void deletePost(long id, Authentication auth) {
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        Person person = personDetailsManager.getPersonByUsername(username);
+        Person person = findAuthenticated(auth);
         T post = postDetailsManager.getPostById(id);
         userEquality(person,post.getPerson());
         postDetailsManager.deletePost(id);
     }
 
     public void archivePost(long id, Authentication auth) {
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        Person person = personDetailsManager.getPersonByUsername(username);
+        Person person = findAuthenticated(auth);
         T post = postDetailsManager.getPostById(id);
         userEquality(person,post.getPerson());
         postDetailsManager.archivePost(id);
@@ -86,6 +83,10 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
         return postDetailsManager.getAllNoArchivedPosts(pageNumber);
     }
 
+    public Page<T> filterPosts(FilterPost filterPost, String fieldName, int pageNumber){
+        return postRepository.findAll(new FilterPosts<T>(filterPost,fieldName),PageRequest.of(pageNumber, 4));
+    }
+
     public void userEquality(Person p1 , Person p2){
         String username1 = p1.getEmail();
         String username2 = p2.getEmail();
@@ -93,5 +94,33 @@ public class PostService<T extends Post , R extends GenericRepository<T> , P ext
             throw new IllegalArgumentException("machi ta3k had post aweld l9e7ba");
         }
     }
+
+    public Person findAuthenticated(Authentication auth){
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        return personDetailsManager.getPersonByUsername(username);
+    }
+
+    public abstract T buildPost(PostCreate postObj);
+
+    public T buildPostDetails(PostCreate postObj , Authentication auth){
+        Person person = findAuthenticated(auth);
+        T post = buildPost(postObj);
+        Category category = categoryRepository.findByTitle(postObj.getCategory());
+        List<Keyword> keywords = postObj.getKeywords().stream()
+                .map(keyword -> {return keywordRepository.findByTitle(keyword);})
+                .collect(Collectors.toList());
+        City city = cityRepository.findByTitle(postObj.getCity());
+        Neighborhood neighborhood = neighborhoodRepository.findByTitle(postObj.getNeighborhood());
+
+        // affectation
+        post.setPerson(person);
+        post.setCity(city);
+        post.setNeighborhood(neighborhood);
+        post.setCategory(category);
+        post.setKeywords(keywords);
+        return post;
+    }
+
 
 }

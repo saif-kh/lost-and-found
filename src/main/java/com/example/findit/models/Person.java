@@ -23,6 +23,9 @@ import java.util.List;
 public class Person extends AppUser {
     @OneToMany(mappedBy = "person")
     List<Post> posts;
+
+    @OneToMany(mappedBy = "person")
+    List<Notification> notifications;
 }
 
 

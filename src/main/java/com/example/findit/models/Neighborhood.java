@@ -1,5 +1,6 @@
 package com.example.findit.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,12 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-public class Category {
+public class Neighborhood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,10 +22,11 @@ public class Category {
     @Column(unique = true)
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private List<Keyword> keywords;
-
-    @OneToMany(mappedBy = "category")
+    @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Post> posts;
+    private City city;
+
+    @OneToMany(mappedBy = "neighborhood")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Post> post;
 }

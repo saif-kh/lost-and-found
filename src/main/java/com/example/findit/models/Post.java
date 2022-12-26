@@ -2,16 +2,19 @@ package com.example.findit.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
+import java.util.List;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -33,12 +36,13 @@ public class Post {
     private String description;
 
     @NotNull(message = "category can't be empty")
-    @Enumerated(value = EnumType.STRING)
+    @ManyToOne
     private Category category;
 
 //    @NotEmpty(message = "date can't be empty")
+    @Column(updatable = false)
     @PastOrPresent(message = "date can't be in the future")
-    private Date date = new Date();
+    private Date date ;
 
     private String picture_Path;
 
@@ -47,5 +51,24 @@ public class Post {
 
     @ManyToOne
     private Person person;
+
+    @ManyToOne
+    private City city;
+
+    @ManyToMany
+    @JoinTable(
+            name = "post_keyword",
+            joinColumns = @JoinColumn(name = "post_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "keyword_id",
+                    referencedColumnName = "id")
+    )
+    List<Keyword> keywords;
+
+    @ManyToOne
+    private Neighborhood neighborhood;
+
+    @OneToMany(mappedBy = "post")
+    List<Notification> notifications;
 
 }
