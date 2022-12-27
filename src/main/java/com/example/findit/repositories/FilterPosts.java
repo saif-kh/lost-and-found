@@ -15,12 +15,24 @@ import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @SuperBuilder
 @Component
 public class FilterPosts<T extends Post> implements Specification<T> {
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private KeywordRepository keywordRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private NeighborhoodRepository neighborhoodRepository;
 
     private String dateStart;
     private String dateEnd;
@@ -43,6 +55,7 @@ public class FilterPosts<T extends Post> implements Specification<T> {
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> predicates2 = new ArrayList<>();
         if ( dateStart != null) {
             LocalDate dateS = LocalDate.parse(dateStart);
             System.out.println(dateS);
@@ -55,10 +68,15 @@ public class FilterPosts<T extends Post> implements Specification<T> {
             Predicate predicate = cb.lessThanOrEqualTo(root.get(fieldName),dateE);
             predicates.add(predicate);
         }
-        if ( category != null) {
+        if ( category != null && !category.isEmpty()) {
             Predicate predicate = cb.equal(root.get("category").get("title"),category);
             predicates.add(predicate);
-            // add filter by keywords
+            if(keywords.size()!=0 ){
+                keywords.forEach(keyword ->{
+                    Predicate predicate2 = cb.equal(root.get("keywords").get("title"),keyword);
+                    predicates2.add(predicate2);
+                });
+            }
         }
         if ( city != null && !city.isEmpty()) {
             Predicate predicate1 = cb.equal(root.get("city"),city);
@@ -69,6 +87,8 @@ public class FilterPosts<T extends Post> implements Specification<T> {
             }
         }
         Predicate[] predicatesArray = new Predicate[predicates.size()];
+        Predicate[] predicatesArray2 = new Predicate[predicates2.size()];
+        predicates.add(cb.or(predicates2.toArray(predicatesArray2)));
         return cb.and(predicates.toArray(predicatesArray));
     }
 }

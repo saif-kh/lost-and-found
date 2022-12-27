@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
@@ -20,7 +22,8 @@ import java.util.List;
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @DiscriminatorColumn(name = "post_type")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @SuperBuilder
 @Entity

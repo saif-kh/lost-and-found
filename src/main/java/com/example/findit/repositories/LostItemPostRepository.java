@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LostItemPostRepository extends GenericRepository<LostItemPost> , JpaSpecificationExecutor<LostItemPost> {
-
     Page<LostItemPost> findByPerson(Person person, Pageable pageable);
 }
