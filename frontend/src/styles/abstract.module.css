@@ -1,0 +1,165 @@
+/*--LOGO--*/
+
+.logo_text {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.white_text {
+  color: white !important;
+}
+
+/*--ERROR--*/
+
+.error_container {
+  --height: 2.5rem;
+  height: var(--height);
+  margin-top: 1rem;
+}
+
+/*--BUTTONS--*/
+
+.primary_button {
+  background-color: var(--main-clr);
+  color: var(--white);
+  height: 2.2rem;
+  padding: 0 1.5rem;
+  border: none;
+  border-radius: 50px;
+}
+
+.danger_button {
+  background-color: var(--danger-clr);
+  color: var(--white);
+  height: 2.2rem;
+  padding: 0 1.5rem;
+  border: none;
+  border-radius: 50px;
+}
+
+.secondary_button {
+  background-color: transparent;
+  color: var(--main-clr);
+  height: 2.2rem;
+  padding: 0 1.5rem;
+  border: 2px solid var(--main-clr);
+  border-radius: 50px;
+}
+
+.small_button {
+  font-size: 0.7rem;
+  height: 1.8rem;
+  padding: 0 1rem;
+}
+
+/*--SEARCH-BAR--*/
+
+.search_bar_container {
+  --clr: hsl(0, 0%, 25%);
+  display: flex;
+  border-radius: 50px;
+  border: 2px solid var(--clr);
+  background-color: var(--clr);
+  height: 2.2rem;
+  overflow: hidden;
+  width: 400px;
+}
+
+.search_bar_container input {
+  border: none;
+  padding-left: 1rem;
+  flex: 1;
+  border-radius: 50px 0 0 50px;
+  outline: none;
+}
+
+.search_bar_container button {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border: none;
+  justify-content: center;
+}
+
+.search_bar_reset {
+  color: var(--clr);
+  background: var(--white);
+  width: 2rem;
+}
+
+.search_bar_search {
+  background-color: hsl(var(--black), var(--opacity));
+  color: var(--white);
+  width: 2.4rem;
+}
+
+/*--GOBACK--*/
+
+.go_back_button_wrapper {
+  border: none;
+  background: none;
+}
+
+.go_back_button_wrapper a {
+  display: flex;
+  gap: 0.1rem;
+  align-items: center;
+  /* background-color: red; */
+  color: hsl(var(--black));
+}
+
+.go_back_button_wrapper a div {
+  font-size: 0.9rem;
+}
+
+/*--INPUTS--*/
+
+.inputs_container {
+  display: flex;
+  gap: 1rem;
+}
+
+.inputs_container > div {
+  flex: 1;
+}
+
+.input_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_wrapper label {
+  font-size: 1rem;
+}
+
+.input_wrapper input {
+  margin-top: 0.2rem;
+  border-radius: 10px;
+  height: var(--input-height);
+  border: 2px solid hsl(var(--black), 0.2);
+  padding-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.input_wrapper input::placeholder {
+  font-size: 0.9rem;
+}
+
+/*--CONTAINERS--*/
+
+.basic_form_container {
+  margin: auto;
+  width: 100%;
+  max-width: 750px;
+  background-color: var(--white);
+  padding: 1.2rem;
+  border-radius: 15px;
+}
+
+.basic_form > * + * {
+  margin-top: 1rem;
+}
+
+.basic_form button {
+  margin-left: auto;
+}

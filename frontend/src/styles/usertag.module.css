@@ -1,0 +1,50 @@
+/*--CONTAINERS--*/
+
+.basic_container > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1rem;
+}
+
+.column_container > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.small_container > div {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+}
+
+/*--CONTENT*/
+
+.user_tag_fullname {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.user_tag_shortname {
+  background-color: var(--sec-clr);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  font-weight: 500;
+  height: 1.9em;
+  aspect-ratio: 1;
+  border-radius: 50px;
+}
+
+.small_container .user_tag_shortname {
+  height: 2em;
+  font-size: 0.9em;
+  font-weight: 400;
+}

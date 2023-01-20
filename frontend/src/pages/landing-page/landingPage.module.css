@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+.landing_page {
+  width: 100vw;
+  position: relative;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  height: 3.4rem;
+  padding: 0 var(--nav-padd);
+  position: relative;
+  z-index: 3;
+  --main-clr: white;
+  --white: black;
+}
+
+.navBar > * {
+  flex: 1;
+  display: flex;
+}
+
+.navBar_options_wrapper {
+  justify-content: space-between;
+  color: var(--white);
+}
+
+.navBar_options_wrapper a {
+  color: white;
+}
+
+.navBar_buttons_wrapper {
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.main {
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.main > div {
+  margin: 0 15vw;
+  width: 70vw;
+}
+
+.lost_section {
+  /* z-index: 2; */
+  --clr: var(--main-clr);
+  --sub-clr: var(--white);
+  --title-clr: var(--sec-clr);
+  background-color: var(--main-clr);
+  /* box-shadow: 10px 0 5px var(--main-clr); */
+}
+
+.found_section {
+  /* z-index: 1; */
+  width: 100%;
+
+  --clr: var(--sec-clr);
+  --sub-clr: black;
+  --title-clr: var(--white);
+  background-color: var(--sec-clr);
+}
+
+.expand_section {
+  animation: expand 1s ease-out forwards;
+  /* position: relative; */
+  z-index: 2;
+}
+
+@keyframes expand {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.main_subtitle {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--sub-clr);
+}
+
+.main_title {
+  font-family: "Lobster";
+  color: var(--title-clr);
+  text-align: center;
+  font-size: 4.3rem;
+  line-height: 4rem;
+}
+
+.main_buttons_wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_buttons_wrapper button {
+  border-radius: 50px;
+  padding: 0.6rem 0rem;
+  width: 6.7rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.primary_button {
+  background-color: var(--white);
+  border: none;
+  color: var(--clr);
+}
+
+.secondary_button {
+  color: var(--white);
+  background: none;
+  border: 2px solid var(--white);
+}

@@ -1,0 +1,108 @@
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+.page > .generic_capsule {
+  margin: auto;
+}
+
+.generic_capsule {
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding: 1rem;
+  padding-top: 1.5rem;
+  box-shadow: 0 0 20px 5px hsl(var(--black), 0.25);
+}
+
+.generic_capsule form {
+  margin-top: 0.3rem;
+}
+
+.generic_capsule form > div + div {
+  margin-top: 1rem;
+}
+
+.capsule_header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.capsule_header div:nth-child(1) {
+  display: flex;
+}
+
+.capsule_header_title {
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.capsule_button {
+  margin-top: 1.3rem;
+  width: 100%;
+  border: none;
+  color: var(--white);
+  height: 2.4rem;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.capsule_under_button {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.capsule_under_button a {
+  font-weight: 500;
+}
+
+/*--LOGIN--*/
+
+.login_capsule {
+  width: 100%;
+  max-width: 350px;
+  height: 400px;
+}
+
+.login_capsule .capsule_header {
+  color: var(--main-clr);
+}
+
+.login_capsule .capsule_button {
+  background-color: var(--main-clr);
+}
+
+.login_capsule .capsule_under_button a {
+  color: var(--sec-clr);
+}
+
+/*--SIGNUP--*/
+
+.signup_capsule {
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+}
+
+.two_input_wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.two_input_wrapper > * {
+  flex: 1;
+}
+
+.signup_capsule .capsule_header {
+  color: var(--sec-clr);
+}
+
+.signup_capsule .capsule_button {
+  background-color: var(--sec-clr);
+}
+
+.signup_capsule .capsule_under_button a {
+  color: var(--main-clr);
+}

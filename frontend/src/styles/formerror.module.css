@@ -1,0 +1,19 @@
+.error_wrapper {
+  background-color: var(--danger-clr);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  height: var(--height);
+  border-radius: 10px;
+  padding-left: 1rem;
+}
+
+.error_icon {
+  display: flex;
+  color: var(--white);
+}
+
+.error_message {
+  color: var(--white);
+  font-size: 0.9rem;
+}

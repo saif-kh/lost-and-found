@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.type_choice {
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.type_choice > div {
+  background-color: hsl(var(--black));
+  width: 3px;
+  height: 30px;
+}
+
+.type_choice button {
+  background: none;
+  border: none;
+  color: hsl(var(--black), 0.4);
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.type_lost {
+  color: var(--main-clr) !important;
+}
+
+.type_found {
+  color: var(--sec-clr) !important;
+}

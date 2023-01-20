@@ -1,0 +1,115 @@
+.model {
+  width: 100%;
+  background-color: var(--white);
+  max-width: 850px;
+  border-radius: 15px;
+  overflow: hidden;
+  --edges: 1.2rem;
+  --left: 1;
+  --right: 3;
+  margin: auto;
+  padding-bottom: 1rem;
+  animation: open 0.2s ease forwards;
+}
+
+@keyframes open {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.post_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--edges);
+  height: 3.8rem;
+  border-bottom: 1px solid hsl(var(--black), 0.25);
+}
+
+.post_header {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.post_type_lost {
+  color: var(--main-clr);
+}
+
+.post_type_found {
+  color: var(--sec-clr);
+}
+
+.post_head button {
+  display: flex;
+  background: none;
+  border: none;
+}
+
+.main_wrapper {
+  padding: 0 var(--edges);
+  --gap: 1rem;
+}
+
+.user_tags_wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  height: 2.8rem;
+}
+
+.user_tags_wrapper .user_tag {
+  display: flex;
+  flex: var(--left);
+}
+
+.tags_wrapper {
+  display: flex;
+  align-items: center;
+  flex: var(--right);
+  color: hsl(var(--black), 0.5);
+  font-size: 0.9rem;
+}
+
+.tags_wrapper > div {
+  flex: 1;
+}
+
+.photo_description_wrapper {
+  display: flex;
+  gap: var(--gap);
+}
+
+.photo_wrapper {
+  flex: var(--left);
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(var(--black), 0.5);
+}
+
+.photo_wrapper img {
+  display: block;
+  height: 100%;
+}
+
+.description_wrapper {
+  flex: var(--right);
+}
+
+.description_label {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.bottom_wrapper {
+  margin-top: 1rem;
+}

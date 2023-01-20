@@ -1,0 +1,136 @@
+.card_container {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  border-radius: 15px;
+  padding: 1.1rem 0.7rem;
+  /* padding-top: 1.2rem;
+  padding-bottom: 0.7rem; */
+  height: 12.5rem;
+  width: 100%;
+}
+
+.post_buttons_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.save_button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  padding: 0.5rem !important;
+  color: var(--main-clr);
+  border: 2px solid var(--main-clr);
+}
+
+.save_button_text {
+  font-weight: 500;
+  width: 1.8rem;
+  text-align: center;
+}
+
+.save_button_icon {
+  display: flex;
+  height: 1rem;
+}
+
+.did_click {
+  animation: icon 0.5s ease forwards !important;
+}
+
+@keyframes icon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.user_tag {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  background-color: var(--white);
+  padding: 0 0.2rem;
+}
+
+.photo_wrapper {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: hsl(var(--black), 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo_wrapper img {
+  display: block;
+  height: 100%;
+}
+
+.main_content_wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tags_wrapper {
+  font-size: 0.8rem;
+  padding-bottom: 0.2rem;
+  --opacity: 0.5;
+  display: flex;
+  align-items: center;
+  color: hsl(var(--black), var(--opacity));
+  border-bottom: 1px solid hsl(var(--black), var(--opacity));
+}
+
+.tags_wrapper > div {
+  flex: 1;
+}
+
+.post_header {
+  font-weight: 500;
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
+}
+
+/* .post_type {
+  font-size: 1.3rem;
+}
+
+.post_title {
+  font-size: 1.3rem;
+} */
+
+.post_description {
+  font-size: 1rem;
+}
+
+.lost_container {
+  border: 2px solid var(--main-clr);
+}
+
+.lost_container .post_type {
+  color: var(--main-clr);
+}
+
+.found_container {
+  border: 2px solid var(--sec-clr);
+}
+
+.found_container .post_type {
+  color: var(--sec-clr);
+}

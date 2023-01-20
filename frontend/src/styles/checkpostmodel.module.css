@@ -1,0 +1,103 @@
+.model_page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  z-index: 2;
+  background-color: hsl(var(--black), 0.6);
+}
+
+.contact_user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --opacity: 0.5;
+}
+
+.contact_user_ray {
+  height: 1px;
+  flex: 1;
+  background-color: hsl(var(--black), var(--opacity));
+}
+
+.contact_user_text {
+  padding: 0 0.3rem;
+  color: hsl(var(--black), var(--opacity));
+}
+
+.model_form {
+  margin-top: 1rem;
+}
+
+.model_form textarea {
+  display: block;
+  border-radius: 15px;
+  padding: 0.7rem;
+  outline: none;
+  border: 2px solid hsl(var(--black));
+  width: 100%;
+  height: 100px;
+  resize: initial;
+  font-size: 0.9rem;
+}
+
+.model_buttons_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.save_button {
+  display: flex;
+  align-items: center;
+  height: 2.2rem;
+  background: none;
+  border-radius: 50px;
+  padding: 0 1rem;
+  transition: all 0.2s ease;
+}
+
+.save_button_text {
+  font-weight: 500;
+  width: 2.2rem;
+  text-align: center;
+}
+
+.save_button_icon {
+  display: flex;
+}
+
+.did_click {
+  animation: icon 0.5s ease forwards !important;
+}
+
+@keyframes icon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.model-close {
+  animation: close 0.2s ease forwards !important;
+}
+
+@keyframes close {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}

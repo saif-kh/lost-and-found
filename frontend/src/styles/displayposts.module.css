@@ -1,0 +1,128 @@
+.main_container {
+  width: 100%;
+  max-width: 700px;
+  margin-inline: auto;
+  padding-top: 5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid hsl(var(--black), 0.25);
+}
+
+/* .cards_wrapper {
+  margin-top: 1.5rem;
+} */
+
+.cards_wrapper > * {
+  margin-top: 1.5rem;
+}
+
+.pages_buttons_wrapper {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding-bottom: 1rem;
+}
+
+.page_button {
+  background-color: var(--main-clr);
+  color: var(--white);
+  border-radius: 50px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
+  height: 1.3rem;
+  aspect-ratio: 1;
+}
+
+.selected_page_button {
+  background-color: var(--sec-clr);
+}
+
+.filters_container {
+  display: flex;
+  height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.filters_container_open {
+  padding-top: 0.8rem;
+  padding-bottom: 0.5rem;
+  height: 7rem;
+  border-bottom: 1px solid hsl(var(--black), 0.25);
+}
+
+.filters_row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filters_row + .filters_row {
+  margin-top: 0.4rem;
+}
+
+.filters_row > div {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.filters_row > div label {
+  display: block;
+  font-size: 0.9rem;
+  margin-right: 0.2rem;
+  width: 5rem;
+}
+
+.filters_row > div input {
+  display: block;
+  flex: 1;
+  /* width: 100%; */
+  border: none;
+  border-bottom: 1px solid hsl(var(--black), 0.25);
+}
+
+.filters_buttons_wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 0.8rem;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.filters_button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  gap: 0.2rem;
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+.filters_button:hover {
+  background-color: hsl(var(--black), 0.1);
+}
+
+.filters_button > div:nth-child(1) {
+  display: flex;
+}
+
+.disp_title {
+  font-size: 1.5rem;
+  color: var(--main-clr);
+  font-weight: 500;
+}
